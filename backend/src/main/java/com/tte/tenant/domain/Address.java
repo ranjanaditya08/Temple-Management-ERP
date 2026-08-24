@@ -42,13 +42,14 @@ public class Address {
     }
 
     private String validatePincode(String pincode) {
-        if (pincode == null && pincode.trim().length() == 0) {
+        if (pincode == null || pincode.trim().length() == 0) {
             throw new IllegalArgumentException("PIN is required");
         }
-        if (pincode.length() != 6 && !pincode.matches("^[0-9]{6}$")) {
+        String noramlized = pincode.replaceAll("\\s","");
+        if (noramlized.length() != 6 || !noramlized.matches("^[1-9]\\d{5}$")) {
             throw new IllegalArgumentException("PIN must be 6 digits");
         }
-        return value;
+        return noramlized;
     }
 
     public String getAddressLine1() {
